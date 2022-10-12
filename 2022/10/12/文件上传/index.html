@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文件上传 - Hexo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="文件包含漏洞原理1文件包含漏洞产生的原因是在通过引入文件时，包含的文件名是用户可控的,由于传入的文件名没有经过合理的校验，或者校验被绕过。
+
+文件包含漏洞的形成,需要满足两个条件121.includ,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="文件上传 - Hexo"/>
+    <meta name="twitter:description" content="文件包含漏洞原理1文件包含漏洞产生的原因是在通过引入文件时，包含的文件名是用户可控的,由于传入的文件名没有经过合理的校验，或者校验被绕过。
+
+文件包含漏洞的形成,需要满足两个条件121.includ,"/>
+    
+    
+    
+    
+    <meta property="og:site_name" content="Hexo"/>
+    <meta property="og:type" content="object"/>
+    <meta property="og:title" content="文件上传 - Hexo"/>
+    <meta property="og:description" content="文件包含漏洞原理1文件包含漏洞产生的原因是在通过引入文件时，包含的文件名是用户可控的,由于传入的文件名没有经过合理的校验，或者校验被绕过。
+
+文件包含漏洞的形成,需要满足两个条件121.includ,"/>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+    <script>window.searchDbPath = "/search.xml";</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Hexo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">文件上传</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">文件上传</h1>
+        <div class="stuff">
+            <span>十月 12, 2022</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h5 id="文件包含漏洞原理"><a href="#文件包含漏洞原理" class="headerlink" title="文件包含漏洞原理"></a>文件包含漏洞原理</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件包含漏洞产生的原因是在通过引入文件时，包含的文件名是用户可控的,由于传入的文件名没有经过合理的校验，或者校验被绕过。</span><br></pre></td></tr></table></figure>
+
+<h5 id="文件包含漏洞的形成-需要满足两个条件"><a href="#文件包含漏洞的形成-需要满足两个条件" class="headerlink" title="文件包含漏洞的形成,需要满足两个条件"></a>文件包含漏洞的形成,需要满足两个条件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.include()等函数通过动态变量的方式引入需要包含的文件</span><br><span class="line">2.用户能够控制这个动态变量</span><br></pre></td></tr></table></figure>
+
+<h5 id="PHP中常见包含文件函数"><a href="#PHP中常见包含文件函数" class="headerlink" title="PHP中常见包含文件函数"></a>PHP中常见包含文件函数</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">include_once()</span><br><span class="line">include()</span><br><span class="line">require()</span><br><span class="line">require_once()</span><br><span class="line">file_get_contents()</span><br><span class="line">fopen()</span><br></pre></td></tr></table></figure>
+
+<h5 id="文件包含漏洞的危害"><a href="#文件包含漏洞的危害" class="headerlink" title="文件包含漏洞的危害"></a>文件包含漏洞的危害</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">敏感信息泄露</span><br><span class="line">获取shell</span><br><span class="line">任意命令执行</span><br></pre></td></tr></table></figure>
+
+<h5 id="require和include两个函数的区别"><a href="#require和include两个函数的区别" class="headerlink" title="require和include两个函数的区别"></a>require和include两个函数的区别</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include:包含的文件不存在时,程序会继续执行</span><br><span class="line">require:包含的文件不存在时,程序停止执行</span><br><span class="line">(如果出现语法错误，两个不会继续执行，如果是找不到这个文件，include继续执行，require，停止执行)</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地文件包含      fopen</span><br><span class="line">远程文件包含		include</span><br></pre></td></tr></table></figure>
+
+<h5 id="本地文件包含利用"><a href="#本地文件包含利用" class="headerlink" title="本地文件包含利用"></a>本地文件包含利用</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">上传图片马，包含图片马GetShell</span><br><span class="line">读取网站源码以及配置文件</span><br><span class="line">包含日志文件GetShell</span><br><span class="line">包含session文件拿shell</span><br></pre></td></tr></table></figure>
+
+<h5 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.当被包含的文件在服务器本地时，就形成的本地文件包含漏洞。</span><br><span class="line">2.本地文件包含和远程文件包含造成漏洞的原因是一样的，当php.ini中的配置选项allow_url_fopen和allow_url_include为ON的话，则包含的文件可以是第三方服务器中的文件，这样就形成了远程文件包含漏洞。(fopen默认是打开的,本地的;include是远程)</span><br></pre></td></tr></table></figure>
+
+<p>截断符号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?</span><br><span class="line">%23</span><br></pre></td></tr></table></figure>
+
+<h5 id="任意文件读取"><a href="#任意文件读取" class="headerlink" title="任意文件读取"></a>任意文件读取</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第一种：</span><br><span class="line">file_get_contents($_GET[&#x27;page&#x27;]);            //任意文件读取</span><br><span class="line"></span><br><span class="line">第二种:</span><br><span class="line">$a = fopen($_GET[&#x27;page&#x27;],&#x27;r&#x27;);</span><br><span class="line">echo fread($a,200)                          //200是读取长度   </span><br></pre></td></tr></table></figure>
+
+<h3 id="文件包含相关协议"><a href="#文件包含相关协议" class="headerlink" title="文件包含相关协议"></a>文件包含相关协议</h3><h5 id="php-x2F-x2F-fileter-读取"><a href="#php-x2F-x2F-fileter-读取" class="headerlink" title="php:&#x2F;&#x2F;fileter       读取"></a>php:&#x2F;&#x2F;fileter       读取</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen=On      ,     allow_url_include=On/Off</span><br><span class="line">php://filter/read=convert.base64-encode/resource=文件路径名</span><br></pre></td></tr></table></figure>
+
+<h5 id="php-x2F-x2F-input"><a href="#php-x2F-x2F-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen=On/Off   ,    allow_url_include=On</span><br><span class="line">需要GET提交,在BP转换成[POST提交]</span><br></pre></td></tr></table></figure>
+
+<h5 id="data-text-x2F-plain"><a href="#data-text-x2F-plain" class="headerlink" title="data:text&#x2F;plain"></a>data:text&#x2F;plain</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen=On      ,     allow_url_include=On</span><br><span class="line">用法1: ?file=data:text/plain,&lt;?php执行内容?&gt;</span><br><span class="line">用法2: ?file=data:text/plain;base64,编码后的php代码</span><br><span class="line">注意base64加密之后的代码,不能够有+号,否则会和url中的+编码冲突</span><br></pre></td></tr></table></figure>
+
+<h5 id="zip-x2F-x2F"><a href="#zip-x2F-x2F" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用zip协议，需要将#编码改为%23，所以需要PHP的版本&gt; =5.3.0，要是因为版本的问题无法将#编码成%23，可以手动把#改成%23</span><br><span class="line">zip://1.zip%231.txt</span><br><span class="line">zip://1.jpg%231.txt</span><br></pre></td></tr></table></figure>
+
+<h5 id="file-x2F-x2F"><a href="#file-x2F-x2F" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file://可以用来访问本地文件系统，且不受allow_url_fopen与allow_url_include的影响。</span><br><span class="line">用法：?file=file://文件绝对路径</span><br></pre></td></tr></table></figure>
+
+<h5 id="Phar-x2F-x2F-反序列化漏洞"><a href="#Phar-x2F-x2F-反序列化漏洞" class="headerlink" title="Phar:&#x2F;&#x2F;(反序列化漏洞)"></a>Phar:&#x2F;&#x2F;(反序列化漏洞)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用法:?file=phar://压缩包/内部文件示例:</span><br><span class="line">phar://xxx.png/shell.php</span><br><span class="line">注意:PHP &gt;= 5.3.0压缩包需要是zip协议压缩，rar不行，将木马文件压缩后，改为其他任意格式的文件都可以正常使用。</span><br><span class="line">步骤:写一个一句话木马文件shell.php，然后用zip协议压缩为shell.zip,然后将后缀改为png等其他格式。</span><br></pre></td></tr></table></figure>
+
+<h5 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需要magic_quotes_gpc=off,</span><br><span class="line">PHP小于5.3.4有效</span><br><span class="line">用法: test.jpg%00</span><br></pre></td></tr></table></figure>
+
+<h5 id="伪协议包含的类型总结"><a href="#伪协议包含的类型总结" class="headerlink" title="伪协议包含的类型总结"></a>伪协议包含的类型总结</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">file://		访问本地文件系统</span><br><span class="line">http://		访问 HTTPs 网址</span><br><span class="line">Php://		访问输入输出流</span><br><span class="line">Zib://		压缩流</span><br><span class="line">Data://		数据</span><br><span class="line">Phar://</span><br></pre></td></tr></table></figure>
+
+<h4 id="文件包含漏洞防御"><a href="#文件包含漏洞防御" class="headerlink" title="文件包含漏洞防御"></a>文件包含漏洞防御</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 设置白名单	</span><br><span class="line">   代码在进行文件包含时，如果文件名可以确定，可以设置白名单对传入的参数进行比较。</span><br><span class="line">2. 过滤危险字符</span><br><span class="line">   由于Include/Require可以对PHP Wrapper形式的地址进行包含执行（需要配置php.ini)，在Linux环境中可以通过&quot;../../&quot;&quot;的形式进行目录绕过，所以需要判断文件名称是否为合法的PHP文件。</span><br><span class="line">3. 设置文件目录</span><br><span class="line">   PHP配置文件中有open_basedir选项可以设置用户需要执行的文件目录，如果设置目录的话，PHP仅仅在该目录内搜索文件。</span><br><span class="line">4. 关闭危险配置(禁止远程文件包含)</span><br><span class="line">   PHP配置中的allow_url_include选项如果打开，PHP会通过Include/Require进行远程文件包含，由于远程文件的不可信任性及不确定性，在开发中禁止打开此选项，PHP默认是关闭的。</span><br></pre></td></tr></table></figure>
+
+
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title="0" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                        
+                            <li title="1" data-url="http://link.hhtjim.com/163/425570952.mp3"></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+        
+    <div id="gitalk-container" class="comment link"
+		data-enable="false"
+        data-ae="false"
+        data-ci=""
+        data-cs=""
+        data-r=""
+        data-o=""
+        data-a=""
+        data-d="false"
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
