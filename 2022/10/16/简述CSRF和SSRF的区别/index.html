@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Rounuooo">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目前正在了解Web漏洞，正巧在各类面试题中都看到这样一道面试题： “请简述CSRF、SSRF与会话重放的区别” 因为最近正好了解到CSRF和SSRF，会话重放还不太熟悉，所以将会话重放暂且不提，在以下总结CSRF和SSRF的概念与区别。 CSRF：CSRF，本名为Cross-site requestforgery，也就是跨站请求伪造。 概念123跨站请求伪造(英语:Cross-site reque">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简述CSRF和SSRF的区别">
+<meta property="og:url" content="http://example.com/2022/10/16/%E7%AE%80%E8%BF%B0CSRF%E5%92%8CSSRF%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="Rounuooo的小站">
+<meta property="og:description" content="目前正在了解Web漏洞，正巧在各类面试题中都看到这样一道面试题： “请简述CSRF、SSRF与会话重放的区别” 因为最近正好了解到CSRF和SSRF，会话重放还不太熟悉，所以将会话重放暂且不提，在以下总结CSRF和SSRF的概念与区别。 CSRF：CSRF，本名为Cross-site requestforgery，也就是跨站请求伪造。 概念123跨站请求伪造(英语:Cross-site reque">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-16T13:10:13.000Z">
+<meta property="article:modified_time" content="2022-10-16T13:11:28.417Z">
+<meta property="article:author" content="Rounuooo">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>简述CSRF和SSRF的区别 - Rounuooo的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Rounuooo的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="简述CSRF和SSRF的区别"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-16 21:10" pubdate>
+          2022年10月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">简述CSRF和SSRF的区别</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>目前正在了解Web漏洞，正巧在各类面试题中都看到这样一道面试题：</p>
+<p>“请简述CSRF、SSRF与会话重放的区别”</p>
+<p>因为最近正好了解到CSRF和SSRF，会话重放还不太熟悉，所以将会话重放暂且不提，在以下总结CSRF和SSRF的概念与区别。</p>
+<h2 id="CSRF："><a href="#CSRF：" class="headerlink" title="CSRF："></a>CSRF：</h2><p>CSRF，本名为Cross-site requestforgery，也就是跨站请求伪造。</p>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir">跨站请求伪造(英语<span class="hljs-symbol">:Cross-site</span> request forgery) ，也被称为one-click attack或者session riding，通常缩写为<span class="hljs-title class_">CSRF</span>或者<span class="hljs-title class_">XSRF</span><br>是一种挟持用户在当前已登录的web应用程序上执行非本意的操作的攻击方法。<br>例如<span class="hljs-symbol">:</span>攻击者盗用了你在某个网站的身份,以你的名义发送恶意请求。<br></code></pre></td></tr></table></figure>
+
+<h4 id="与XSS不得不说的关系"><a href="#与XSS不得不说的关系" class="headerlink" title="与XSS不得不说的关系"></a>与XSS不得不说的关系</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">说到CSRF，不得不提一下XSS。CSRF看起来好像和XSS跨站脚本攻击有着“不得不说的秘密”，实则却是两个不同维度的情况。从名字上来看，同为跨站攻击，XSS攻击是跨站脚本攻击，CSRF攻击是请求伪造，也就是CSRF攻击本不是出自用户之手，却经过第三方恶意攻击者的处理，伪装成了受信任用户的“亲历亲为”。<br>XSS是实现CSRF的诸多途径中的一条，但并不是唯一的一条。<br></code></pre></td></tr></table></figure>
+
+<h4 id="CSRF能做的事"><a href="#CSRF能做的事" class="headerlink" title="CSRF能做的事"></a>CSRF能做的事</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs">以你的名义：<br>发邮件<br>发消息<br>财产操作比如转账或者购买商品<br>新建文件<br>增删改查的操作也可以做等等<br></code></pre></td></tr></table></figure>
+
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>CSRF利用前提</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">1.登录信任网站，并在浏览器中保存相应的cookie<br>2.在不退出登录的情况下，访问恶意网站<br></code></pre></td></tr></table></figure>
+
+<h4 id="分类与利用-GET-CSRF-和-POST-CSRF"><a href="#分类与利用-GET-CSRF-和-POST-CSRF" class="headerlink" title="分类与利用    GET CSRF 和 POST CSRF"></a>分类与利用    GET CSRF 和 POST CSRF</h4><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stata">对于很多网站来说，即使是一些重要的操作使用<span class="hljs-keyword">POST</span>来提交请求，但是服务器再接收请求的时候并没有严格区分<span class="hljs-keyword">POST</span>和GET。在PHP中滥用<span class="hljs-variable">$_REQUEST</span>就是例子。<br>如果服务端已经区分了GET,<span class="hljs-keyword">POST</span>只用<span class="hljs-keyword">POST</span>请求数据，可以通过制造一个隐藏的表单，并通过js代码自动提交伪造的表单。<br></code></pre></td></tr></table></figure>
+
+<h4 id="CSRF漏洞挖掘"><a href="#CSRF漏洞挖掘" class="headerlink" title="CSRF漏洞挖掘"></a>CSRF漏洞挖掘</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-number">1</span>）冒充身份:订阅<span class="hljs-regexp">/关注/</span>转发/投票操作，删除文件，更改配置等<br><span class="hljs-number">2</span>）帐户接管:密码修改，邮箱绑定，第三方帐户关联<br><span class="hljs-number">3</span>）其他:登录<span class="hljs-regexp">/注册/</span>注销/注册<br><span class="hljs-number">4</span>）安全设计原则:CSRF登录后令牌未更新、登出后未注销等<br></code></pre></td></tr></table></figure>
+
+<h4 id="CSRF漏洞防御"><a href="#CSRF漏洞防御" class="headerlink" title="CSRF漏洞防御"></a>CSRF漏洞防御</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scss">从漏洞原理来看：<br><span class="hljs-number">1</span>.关键操作增加验证码机制(比如说支付密码)(增加带有大量噪点的验证码，杜绝代码能够识别的简单验证码，当然了也经常被绕过)<br><span class="hljs-number">2</span>.验证<span class="hljs-built_in">referer</span>(采用同源策略,referer记录着数据包的来源地址,来判断请求的合法性,但是这个可以伪造)<br><span class="hljs-number">3</span>.使用<span class="hljs-built_in">Token</span>(每次访问都会改变)(令牌是一种将表单value的加密算法生成不同的加密结果,在服务器端进行验证)<br><br>从漏洞利用前提条件来看：<br>用户需要养成访问完一个网站之后，点击退出帐户的好习惯<br>（如果用户换浏览器登录则无法继续CSRF漏洞, 因为cookie只存在登录的那个浏览器）<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="SSRF："><a href="#SSRF：" class="headerlink" title="SSRF："></a>SSRF：</h2><p>SSRF,也就是Server Side RequestForgery—服务器端请求伪造。</p>
+<h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">从字面上来看，与CSRF不同的是，它是服务器端发出的请求伪造而非从用户一端提交。别误会，作为受信任用户，服务器当然不可能做出损害用户信息的事。它是一种由攻击者构造形成，由服务端发起请求的一个安全漏洞。因为它是由服务端发起的，所以它能够请求到与它相连但与外网隔离的内部系统。由于服务端提供了从其他服务器应用获取数据的功能（例如分享等功能)且没有对目标地址做过滤与限制，给予了攻击者乘虚而入的机会。比如从指定<span class="hljs-built_in">URL</span>地址获取网页文本内容、加载指定地址的图片、下载等等。SSRF是利用存在缺陷的web应用作为代理攻击远程和本地的服务器。<br></code></pre></td></tr></table></figure>
+
+<h4 id="SSRF能做的事情"><a href="#SSRF能做的事情" class="headerlink" title="SSRF能做的事情"></a>SSRF能做的事情</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript">可以对外网服务器所在的内网、本地进行端口扫描，获取一些服务的banner信息。<br>攻击运行在内网或者本地的应用程序。<br>对内网web应用进行指纹识别，通过访问默认文件实现。<br>攻击内外网的web应用。sql注入、struct2、redis等。<br>利用<span class="hljs-built_in">file</span>协议读取本地文件等。<br></code></pre></td></tr></table></figure>
+
+<h4 id="SSRF常见限制"><a href="#SSRF常见限制" class="headerlink" title="SSRF常见限制"></a>SSRF常见限制</h4><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs gcode"><span class="hljs-number">1.</span>限制为http:<span class="hljs-comment">//www.xxx.com域名</span><br>	采用http基本身份认证的方式绕过。即@<br>	http:<span class="hljs-comment">//www.xXX.com@www.XXC.com</span><br><span class="hljs-number">2.</span>限制请求IP不为内网地址<br>	当不允许ip为内网地址时	<span class="hljs-comment">(1)</span>采取短网址绕过<span class="hljs-comment">(2)</span>采取特殊域名<span class="hljs-comment">(3)</span>采取进制转换<br><span class="hljs-number">3.</span>限制请求只为http协议	<span class="hljs-comment">(1)</span>采取<span class="hljs-number">302</span>跳转   <span class="hljs-comment">(2)</span>采取短地址<br></code></pre></td></tr></table></figure>
+
+<h4 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式:"></a>绕过方式:</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">限制前缀		@  <br>限制IP地址		句号  <br>限制网址		www<span class="hljs-selector-class">.localhost</span>.com/使用 短链接(<span class="hljs-built_in">curl</span>(暂不能用)  file_get_contents)    <br>特殊网址绕过		sslip.io和nip<span class="hljs-selector-class">.io</span>    <br>IP的进制转换		十进制十六进制<br></code></pre></td></tr></table></figure>
+
+<h4 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h4><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-number">1</span>.过滤返回信息，如果web应用数去获取某一类型文件，在把结果返回给用户之前先验证信息是否符合标准。<br>例如:当攻击者利用<span class="hljs-string">&quot;识别图片&quot;</span>下的该漏洞远程包含一个文件，可以通过在服务器上验证返回数据是否是纯像素，来进行过滤。<br><span class="hljs-number">2</span>.统一错误页<br><span class="hljs-number">3</span>.限制请求端口为http常用端口<span class="hljs-number">80</span>,<span class="hljs-number">443</span>,<span class="hljs-number">8080</span>,<span class="hljs-number">8090</span><br><span class="hljs-number">4</span>.内网<span class="hljs-built_in">IP</span>黑名单，避免应用被用来获取内网数据，攻击内网<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说，CSRF是服务器端没有对用户提交的数据进行严格的把控，导致攻击者可以利用用户的Cookie信息伪造用户请求发送至服务器。而SSRF是服务器对用户提供的可控URL地址过于信任，没有经过严格检测，导致攻击者可以以此为跳板攻击内网或其他服务器。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>简述CSRF和SSRF的区别</div>
+      <div>http://example.com/2022/10/16/简述CSRF和SSRF的区别/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Rounuooo</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/13/XXE/" title="XXE">
+                        <span class="hidden-mobile">XXE</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
