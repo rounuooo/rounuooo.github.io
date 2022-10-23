@@ -16,21 +16,21 @@
   <meta name="author" content="Rounuooo">
   <meta name="keywords" content="">
   
-    <meta name="description" content="看到的一段话,觉得很有意思,转载一下。 搞企业，先扫描；扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令社工库，找一找；邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具搞不定，放大招；发邮件，凭伪造； &#x2F;&amp;#">
+    <meta name="description" content="无论您是花时间上网还是在办公室工作，您都希望知道自己处于安全的环境中，让您高枕无忧。虽然我们大多数人都知道在上网时要采取预防措施――保护自己免受网络钓鱼攻击和其他网络威胁的侵害，但我们也应该注意自己的人身安全。 一个问题是尾随――一种社会工程攻击，其中有人可以物理访问企业以获取机密信息或造成其他伤害。 什么是尾随攻击?尾随是一种社会工程攻击，未经授权的人可以物理访问禁区（可能是密码保护区域)，在那">
 <meta property="og:type" content="article">
-<meta property="og:title" content="企业网络的常见渗透思路">
-<meta property="og:url" content="http://example.com/2022/10/20/%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B8%B8%E8%A7%81%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:title" content="什么是尾随攻击以及如何保护自己免受攻击">
+<meta property="og:url" content="http://example.com/2022/10/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%9A%8F%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8A%A4%E8%87%AA%E5%B7%B1%E5%85%8D%E5%8F%97%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="Rounuooo的小站">
-<meta property="og:description" content="看到的一段话,觉得很有意思,转载一下。 搞企业，先扫描；扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令社工库，找一找；邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具搞不定，放大招；发邮件，凭伪造； &#x2F;&amp;#">
+<meta property="og:description" content="无论您是花时间上网还是在办公室工作，您都希望知道自己处于安全的环境中，让您高枕无忧。虽然我们大多数人都知道在上网时要采取预防措施――保护自己免受网络钓鱼攻击和其他网络威胁的侵害，但我们也应该注意自己的人身安全。 一个问题是尾随――一种社会工程攻击，其中有人可以物理访问企业以获取机密信息或造成其他伤害。 什么是尾随攻击?尾随是一种社会工程攻击，未经授权的人可以物理访问禁区（可能是密码保护区域)，在那">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-20T09:16:08.000Z">
-<meta property="article:modified_time" content="2022-10-20T10:25:43.858Z">
+<meta property="article:published_time" content="2022-10-23T06:35:49.000Z">
+<meta property="article:modified_time" content="2022-10-23T06:37:27.355Z">
 <meta property="article:author" content="Rounuooo">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>企业网络的常见渗透思路 - Rounuooo的小站</title>
+  <title>什么是尾随攻击以及如何保护自己免受攻击 - Rounuooo的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="企业网络的常见渗透思路"></span>
+            <span id="subtitle" data-typed-text="什么是尾随攻击以及如何保护自己免受攻击"></span>
           
         </div>
 
@@ -206,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-20 17:16" pubdate>
-          2022年10月20日 下午
+        <time datetime="2022-10-23 14:35" pubdate>
+          2022年10月23日 下午
         </time>
       </span>
     
@@ -218,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          531 字
+          1.4k 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
         
-          5 分钟
+          12 分钟
         
       </span>
     
@@ -267,13 +267,50 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">企业网络的常见渗透思路</h1>
+            <h1 style="display: none">什么是尾随攻击以及如何保护自己免受攻击</h1>
             
             
               <div class="markdown-body">
                 
-                <p>看到的一段话,觉得很有意思,转载一下。</p>
-<p>搞企业，先扫描；<br>扫描器，商业好； &#x2F;&#x2F; 商业版扫描器通常比较强大<br>默认密，都知道； &#x2F;&#x2F; 很多系统存在默认账号默认口令<br>社工库，找一找；<br>邮箱号，先列好； &#x2F;&#x2F; 搜集企业员工个人邮箱<br>九头蛇，跑一跑； &#x2F;&#x2F; Hydra 是一个密码破解工具<br>搞不定，放大招；<br>发邮件，凭伪造； &#x2F;&#x2F; 发钓鱼邮件，比如冒充管理员让用户到指定页面去输入密码<br>没邮箱，搞网站；<br>二级域，皆可爆； &#x2F;&#x2F; 主域的防护通常较好，某些较弱的二级域可作为突破点<br>老漏洞，没修好； &#x2F;&#x2F; 有些老漏洞可能没有被恰当地修复，工作失误也可能让漏洞回归<br>新漏洞，刷一票； &#x2F;&#x2F; 大部分企业对漏洞能做到一周内修复就算三好学生了<br>干研发，Git  找； &#x2F;&#x2F; 常有人把为公司写的代码也传到github上，里面可能会包含口令等<br>源代码，全都要； &#x2F;&#x2F; 即使源码不包含口令，也很有助于发现漏洞<br>CDN ，  可以跳；<br>防火墙，可以撬；<br>堡垒机，可以绕；<br>云防护，可以秒； &#x2F;&#x2F; 各种防护措施都不是有了就行，需要正确地使用<br>是企业，没有哪家搞不了！</p>
+                <p>无论您是花时间上网还是在办公室工作，您都希望知道自己处于安全的环境中，让您高枕无忧。虽然我们大多数人都知道在上网时要采取预防措施――保护自己免受网络钓鱼攻击和其他网络威胁的侵害，但我们也应该注意自己的人身安全。</p>
+<p>一个问题是尾随――一种社会工程攻击，其中有人可以物理访问企业以获取机密信息或造成其他伤害。</p>
+<h2 id="什么是尾随攻击"><a href="#什么是尾随攻击" class="headerlink" title="什么是尾随攻击?"></a>什么是尾随攻击?</h2><p>尾随是一种社会工程攻击，未经授权的人可以物理访问禁区（可能是密码保护区域)，在那里他们可能会窃取敏感信息、损坏财产、破坏用户凭据，甚至<strong>在计算机上安装恶意软件</strong>。</p>
+<p>“捎带”与尾随密切相关，但它涉及受骗员工的同意。因此，虽然工作人员可能不知道有人将他们尾随其后进入禁区，但黑客可能会说服工作人员提供访问权限，因为他们冒充送货司机。</p>
+<h2 id="谁有尾随攻击的危险"><a href="#谁有尾随攻击的危险" class="headerlink" title="谁有尾随攻击的危险?"></a>谁有尾随攻击的危险?</h2><p>尤其有可能称为尾随诈骗目标的公司包括:</p>
+<ul>
+<li>有许多员工，经常进出场所</li>
+<li>具有多个进入建筑物的入口点</li>
+<li>定期接收食物、包裹、文件和其他物品的交付</li>
+<li>有许多分包商为他们工作</li>
+<li>员工没有在物理和网络安全协议方面接受过全面培训</li>
+</ul>
+<p>一般来说，拥有强大安全系统(包括使用生物识别、徽章或其他身份和信息安全措施)的公司可以更好地防止尾随和捎带攻击。</p>
+<p>但这并不是说某些口齿伶俐的欺诈者无法说服某人让他们进入或找到绕过这些保护措施的方法。</p>
+<h2 id="常见的追尾方法有哪些"><a href="#常见的追尾方法有哪些" class="headerlink" title="常见的追尾方法有哪些?"></a>常见的追尾方法有哪些?</h2><p>您在工作中应该注意的常见尾随攻击类型包括:</p>
+<ul>
+<li>有人走到你身后进入安全区域，这取决于你的常见礼貌，为他们保持门打开</li>
+<li>他们看起来不像快递员或送货司机</li>
+<li>他们看起来不像快递员或送货司机</li>
+<li>有人拿着满满一手的东西来欺骗你为他们开门</li>
+<li>声称他们丢失了工作ID或将其忘在家里的人，以便您准许他们进入</li>
+</ul>
+<h2 id="如何保护自己免受未遂攻击"><a href="#如何保护自己免受未遂攻击" class="headerlink" title="如何保护自己免受未遂攻击"></a>如何保护自己免受未遂攻击</h2><p>保护自己免受尾随攻击的部分原因在于了解该问题，提高您对工作的认识水平，并取决于您的雇主，建立更有效的安全系统。</p>
+<p>一些解决方案包括:</p>
+<h3 id="加强安全培训"><a href="#加强安全培训" class="headerlink" title="加强安全培训"></a>加强安全培训</h3><p>许多公司知道如何培训员工识别、避免和应对在线安全问题，但可能忘记对物理安全进行同样的努力。如何发现和处理威胁应该是培训的一部分，同时培养对周围环境和可能不合适的人的意识。<br>管理层应向每个人提供明确说明的安全政策，该政策可能会坚持在没有适当通行证或身份证明的情况下不允许任何人进入安全区域。随着安全策略的更新，所有员工都应了解更改和添加内容。</p>
+<h3 id="智能徽章和卡片"><a href="#智能徽章和卡片" class="headerlink" title="智能徽章和卡片"></a>智能徽章和卡片</h3><p>如果您的大型企业分布在多个楼层，员工可能很难知道谁在那里工作，谁不在那里工作，从而使他们容易受到尾随和捎带攻击。要求智能徽章和卡进入受限区域有助于减少未经授权的入侵并提供更好的访问控制。<br>建立配备专门安保人员的配备齐全的接待区也可以成为更大安保系统的一部分。</p>
+<h3 id="生物识别扫描仪"><a href="#生物识别扫描仪" class="headerlink" title="生物识别扫描仪"></a>生物识别扫描仪</h3><p>生物识别扫描仪是一种更先进的方法，可以为工人的身份提供适当的身份验证。他们扫描一个人的独特身体或听觉特征，并将其与经批准人员的数据库进行比较。</p>
+<p>生物特征安全的例子包括:</p>
+<ul>
+<li>语音识别</li>
+<li>虹膜识别</li>
+<li>指纹扫描</li>
+<li>面部识别</li>
+<li>心率传感器</li>
+</ul>
+<h3 id="了解社会工程学"><a href="#了解社会工程学" class="headerlink" title="了解社会工程学"></a>了解社会工程学</h3><p>人们容易受到物理和网络攻击的一个原因是他们缺乏社会工程及其构成的威胁类型的教育。</p>
+<p>工人需要了解全方位的社会工程技术和专业知识来保护自己，无论是在他们的社交媒体账户还是在实际工作环境中。</p>
+<p>就他们而言，公司可以使用模拟网络钓鱼电子邮件和尾随攻击来提高意识并强调如何遵循协议来处理它们。</p>
+<h3 id="视频监控"><a href="#视频监控" class="headerlink" title="视频监控"></a>视频监控</h3><p>如果进入企业的方式有很多，那么在所有入口设置视频监控可能是有意义的。先进的视频监控系统可以使用人工智能(AI)和视频分析来扫描进入人员的面部，并将其与员工特征数据库进行比较。</p>
 
                 
               </div>
@@ -291,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>企业网络的常见渗透思路</div>
-      <div>http://example.com/2022/10/20/企业网络的常见渗透思路/</div>
+      <div>什么是尾随攻击以及如何保护自己免受攻击</div>
+      <div>http://example.com/2022/10/23/什么是尾随攻击以及如何保护自己免受攻击/</div>
     </div>
     <div class="license-meta">
       
@@ -304,7 +341,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月20日</div>
+          <div>2022年10月23日</div>
         </div>
       
       
@@ -336,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%9A%8F%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8A%A4%E8%87%AA%E5%B7%B1%E5%85%8D%E5%8F%97%E6%94%BB%E5%87%BB/" title="什么是尾随攻击以及如何保护自己免受攻击">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">什么是尾随攻击以及如何保护自己免受攻击</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/19/%E6%AD%A3%E5%90%91shell%E5%92%8C%E5%8F%8D%E5%90%91shell/" title="正向shell和反向shell">
-                        <span class="hidden-mobile">正向shell和反向shell</span>
+                      <a href="/2022/10/20/%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E7%9A%84%E5%B8%B8%E8%A7%81%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/" title="企业网络的常见渗透思路">
+                        <span class="hidden-mobile">企业网络的常见渗透思路</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
