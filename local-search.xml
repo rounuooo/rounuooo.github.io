@@ -124,7 +124,7 @@
     <link href="/2022/10/01/test123/"/>
     <url>/2022/10/01/test123/</url>
     
-    <content type="html"><![CDATA[<p>112233</p>]]></content>
+    <content type="html"><![CDATA[<p>112233</p><p><img src="/../images/test123/image-20221026105758264.png" alt="image-20221026105758264"></p>]]></content>
     
     
     
