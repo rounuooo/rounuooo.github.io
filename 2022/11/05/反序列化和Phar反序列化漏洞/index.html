@@ -16,15 +16,15 @@
   <meta name="author" content="Rounuooo">
   <meta name="keywords" content="">
   
-    <meta name="description" content="反序列化漏洞定义123PHP 反序列化漏洞又叫做 PHP 对象注入漏洞，是因为程序对输入数据处理不当导致的.反序列化漏洞的成因在于代码中的 unserialize() 接收的参数可控，从上面的例子看，这个函数的参数是一个序列化的对象，而序列化的对象只含有对象的属性，那我们就要利用对对象属性的篡改实现最终的攻击。  （序列化是把一个对象变成可以传输的字符串，让电脑看懂；而反序列化就是将这个字符串重新">
+    <meta name="description" content="反序列化漏洞反序列化漏洞首次出现在2015。虽然漏洞较新，但利用十分热门，主要原因还是太过信任客户端提交的数据，容易被开发者忽略，该漏洞一般都可执行任意命令或代码，造成的影响较大。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反序列化和Phar反序列化漏洞">
 <meta property="og:url" content="http://example.com/2022/11/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CPhar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Rounuooo的小站">
-<meta property="og:description" content="反序列化漏洞定义123PHP 反序列化漏洞又叫做 PHP 对象注入漏洞，是因为程序对输入数据处理不当导致的.反序列化漏洞的成因在于代码中的 unserialize() 接收的参数可控，从上面的例子看，这个函数的参数是一个序列化的对象，而序列化的对象只含有对象的属性，那我们就要利用对对象属性的篡改实现最终的攻击。  （序列化是把一个对象变成可以传输的字符串，让电脑看懂；而反序列化就是将这个字符串重新">
+<meta property="og:description" content="反序列化漏洞反序列化漏洞首次出现在2015。虽然漏洞较新，但利用十分热门，主要原因还是太过信任客户端提交的数据，容易被开发者忽略，该漏洞一般都可执行任意命令或代码，造成的影响较大。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-05T02:12:45.000Z">
-<meta property="article:modified_time" content="2022-11-05T02:13:22.604Z">
+<meta property="article:modified_time" content="2022-11-05T03:46:19.038Z">
 <meta property="article:author" content="Rounuooo">
 <meta property="article:tag" content="反序列化">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.4k 字
+          8.5k 字
         
       </span>
     
@@ -273,7 +273,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">PHP 反序列化漏洞又叫做 PHP 对象注入漏洞，是因为程序对输入数据处理不当导致的.<br><br>反序列化漏洞的成因在于代码中的 <span class="hljs-built_in">unserialize</span>() 接收的参数可控，从上面的例子看，这个函数的参数是一个序列化的对象，而序列化的对象只含有对象的属性，那我们就要利用对对象属性的篡改实现最终的攻击。<br></code></pre></td></tr></table></figure>
+                <h2 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h2><p>反序列化漏洞首次出现在2015。虽然漏洞较新，但利用十分热门，主要原因还是太过信任客户端提交的数据，容易被开发者忽略，该漏洞一般都可执行任意命令或代码，造成的影响较大。</p>
+<span id="more"></span>
+
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">PHP 反序列化漏洞又叫做 PHP 对象注入漏洞，是因为程序对输入数据处理不当导致的.<br><br>反序列化漏洞的成因在于代码中的 <span class="hljs-built_in">unserialize</span>() 接收的参数可控，从上面的例子看，这个函数的参数是一个序列化的对象，而序列化的对象只含有对象的属性，那我们就要利用对对象属性的篡改实现最终的攻击。<br></code></pre></td></tr></table></figure>
 
 <p>（序列化是把一个对象变成可以传输的字符串，让电脑看懂；而反序列化就是将这个字符串重新编码让我们看得懂）</p>
 <h4 id="需要具备反序列化漏洞的前提"><a href="#需要具备反序列化漏洞的前提" class="headerlink" title="需要具备反序列化漏洞的前提"></a>需要具备反序列化漏洞的前提</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">必须有 <span class="hljs-built_in">unserailize</span>() 函数<br><br><span class="hljs-built_in">unserailize</span>() 函数的参数必须可控（为了成功达到控制你输入的参数所实现的功能，可能需要绕过一些魔法函数<br></code></pre></td></tr></table></figure>
