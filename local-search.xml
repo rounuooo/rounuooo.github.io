@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Nmap常用参数</title>
+    <link href="/2022/11/11/Nmap%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/"/>
+    <url>/2022/11/11/Nmap%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>参   数</th><th>说   明</th></tr></thead><tbody><tr><td>-sT</td><td>TCP connect()扫描，这种方式会在目标主机的日志中记录大批连接请求和错误信息。</td></tr><tr><td>-sS</td><td>半开扫描，很少有系统能把它记入系统日志。不过，需要Root权限。</td></tr><tr><td>-sF  -sN</td><td>秘密FIN数据包扫描、Xmas Tree、Null扫描模式</td></tr><tr><td>-sP</td><td>ping扫描，Nmap在扫描端口时，默认都会使用ping扫描，只有主机存活，Nmap才会继续扫描。</td></tr><tr><td>-sU</td><td>UDP扫描，但UDP扫描是不可靠的</td></tr><tr><td>-sA</td><td>这项高级的扫描方法通常用来穿过防火墙的规则集</td></tr><tr><td>-sV</td><td>探测端口服务版本</td></tr><tr><td>-Pn</td><td>扫描之前不需要用ping命令，有些防火墙禁止ping命令。可以使用此选项进行扫描</td></tr><tr><td>-v</td><td>显示扫描过程，推荐使用</td></tr><tr><td>-h</td><td>帮助选项，是最清楚的帮助文档</td></tr><tr><td>-p</td><td>指定端口，如“1-65535、1433、135、22、80”等</td></tr><tr><td>-O</td><td>启用远程操作系统检测，存在误报</td></tr><tr><td>-A</td><td>全面系统检测、启用脚本检测、扫描等</td></tr><tr><td>-oN&#x2F;-oX&#x2F;-oG</td><td>将报告写入文件，分别是正常、XML、grepable 三种格式</td></tr><tr><td>-T4</td><td>针对TCP端口禁止动态扫描延迟超过10ms</td></tr><tr><td>-iL</td><td>读取主机列表，例如，“-iL C:\ip.txt”</td></tr></tbody></table><ul><li>扫描指定IP所开放的端口：nmap -sS -p 1-65535 -v XXX.XXX.XXX.XXX</li><li>扫描C段存活主机：nmap -sP XXX.XXX.XXX.XXX&#x2F;24</li><li>指定端口扫描：nmap -p 80,1433,22,1521 XXX.XXX.XXX.XXX</li><li>探测主机操作系统：nmap -o XXX.XXX.XXX.XXX</li><li>全面的系统探测：nmap -v -A XXX.XXX.XXX.XXX（Nmap默认扫描主机1000个高危端口）</li><li>探测指定网段：nmap XXX.XXX.XXX.XXX-XXX</li><li>穿透防火墙进行扫描：nmap -Pn -A XXX.XXX.XXX.XXX（XXX.XXX.XXX.XXX禁止用ping的）</li><li>使用脚本，扫描Web敏感目录：nmap -p 80 –script&#x3D;http-enum.nse XXX.XXX.XXX.XXX</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>nmap</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>反序列化和Phar反序列化漏洞</title>
     <link href="/2022/11/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CPhar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/"/>
     <url>/2022/11/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8CPhar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
